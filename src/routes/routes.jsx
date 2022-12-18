@@ -1,0 +1,21 @@
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import paths from '../constants/paths'
+
+import { Admin, Home, Login, Register } from '../containers'
+
+function Routes() {
+    return (
+        <Router>
+            <Switch>
+                <Route exact component={Home} path={paths.home} />
+                <Route  component={Login} path={paths.login} />
+                <Route  component={Register} path={paths.register} />
+                <Route  component={Admin} path={paths.admin} isAdmin />
+            </Switch>
+        </Router>
+    )
+}
+
+export default Routes
