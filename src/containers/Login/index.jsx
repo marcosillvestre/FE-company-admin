@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useId } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
@@ -17,7 +16,6 @@ import { Button, Container, ContainerItens, GoogleButton, InputUser, Label3D } f
 export function Login() {
     const { putInfoOnLocalS } = useUser()
     const { push } = useHistory()
-    const [user, setUser] = useState()
 
     const schema = yup.object({
         email: yup.string().required("este campo precisa ser preechido").email("digite um email válido"),
@@ -31,7 +29,6 @@ export function Login() {
             fetchapi.post('login', {
                 email: user.email,
                 password: user.password,
-                cargo: user.cargo
             }), {
 
             pending: 'Conferindo os dados',
@@ -47,34 +44,49 @@ export function Login() {
         }, 2000);
     }
 
+
     const handleGoogleLogin = async () => {
 
         const provider = new firebase.auth.GoogleAuthProvider()
         const result = await auth.signInWithPopup(provider)
 
-        if (result.user) {
-            const { displayName, photoURL, email, updatePassword } = result.user
-            if (!displayName || !photoURL) throw new Error("nao tem displayname nem foto")
+        const { email, uid, displayName } = result.user
+        console.log(result.user)
+
+        try {
+            const { data, status } = await fetchapi.post('cadastro', {
+                name: displayName,
+                email: email,
+                password: uid,
+            }, { validateStatus: () => true })
+
+            if (status === 200 || status === 201) {
+                toast.success('Login realizado com sucesso')
+                push(paths.home)
+                putInfoOnLocalS(data)
+            } else if (status === 409) {
+                toast.success('Login realizado com sucesso')
+                push(paths.home)
+                putInfoOnLocalS(data)
+            } else {
+                throw new Error()
+            }
+        } catch (error) {
+            toast.error('Something wrong')
         }
 
-        setUser({
-            id: useId,
-            avatar: photoURL,
-            nome: displayN
 
-        })
     }
 
 
     return (
         <Container>
             <Label3D>
-                <iframe
-                    src='https://my.spline.design/clonercitycopy-af94954f36c9c13af1dd1febe759d4d7/'
-                    frameborder='0' width='100%' height='150%'>
-                </iframe>
+                <iframe src='https://my.spline.design/clonertorusmotioncopy-c52faff7c9c15c6536c08543d11874bc/'
+                    frameBorder='0' width='100%' height='100%'></iframe>
             </Label3D>
             <ContainerItens>
+                <Title>Company admin</Title>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <GoogleButton onClick={handleGoogleLogin}><img src={google} /> Continue with Google </GoogleButton>
                     <p>or</p>
@@ -82,8 +94,6 @@ export function Login() {
                     <ErrorMessage>{errors.email?.message}</ErrorMessage>
                     <InputUser formNoValidate type='password'{...register("password")} placeholder="Senha.." validIpnut={errors.password?.message} />
                     <ErrorMessage>{errors.password?.message}</ErrorMessage>
-                    <InputUser formNoValidate type='text'{...register("cargo")} placeholder="Cargo.." validIpnut={errors.cargo?.message} />
-
 
                     <Button type="submit"> Log in </Button>
                     <p> No account ? <a href={paths.register}> Create one </a></p>

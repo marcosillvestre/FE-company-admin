@@ -1,16 +1,19 @@
 import React from 'react'
+import { Sidebar } from '../../components'
+import { SendPrd } from './sendPrd'
 
-import { Container } from './styles'
+import { Container, Wrapper } from './styles'
 
 
 export function Home() {
-    console.log('first')
 
     return (
         <Container>
+            <Wrapper>
+                <Sidebar />
 
-            hi ther
-
+                <SendPrd />
+            </Wrapper>
         </Container>
     )
 }

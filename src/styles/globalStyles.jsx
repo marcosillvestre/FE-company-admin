@@ -7,7 +7,7 @@ export default createGlobalStyle`
     margin: 0;
     box-sizing: border-box ;
     padding: 0 ;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, 'Cinzel', serif;
     outline: none ;
 
     a{
