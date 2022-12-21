@@ -2,18 +2,18 @@ import React from 'react'
 import { Sidebar } from '../../components'
 import { SendPrd } from './sendPrd'
 
-import { Container, Wrapper } from './styles'
+import { Container } from './styles'
 
 
 export function Home() {
 
     return (
         <Container>
-            <Wrapper>
-                <Sidebar />
+            {/* <Wrapper> */}
+            <Sidebar />
 
-                <SendPrd />
-            </Wrapper>
+            <SendPrd />
+            {/* </Wrapper> */}
         </Container>
     )
 }
