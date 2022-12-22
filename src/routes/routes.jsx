@@ -4,15 +4,18 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import paths from '../constants/paths'
 
 import { Admin, Home, Login, Register } from '../containers'
+import PrivateRoutes from './privateRoutes'
 
 function Routes() {
     return (
         <Router>
             <Switch>
-                <Route exact component={Home} path={paths.home} />
-                <Route  component={Login} path={paths.login} />
-                <Route  component={Register} path={paths.register} />
-                <Route  component={Admin} path={paths.admin} isAdmin />
+                <Route component={Login} path={paths.login} />
+                <Route component={Register} path={paths.register} />
+
+                <PrivateRoutes exact component={Home} path={paths.home} />
+                <PrivateRoutes component={Admin} path={paths.admin} isAdmin />
+                <PrivateRoutes exact component={Home} path={paths.edit} isAdmin />
             </Switch>
         </Router>
     )

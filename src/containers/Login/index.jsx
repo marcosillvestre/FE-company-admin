@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import * as yup from 'yup';
 import google from '../../assets/google.svg';
 import { ErrorMessage } from "../../components/ErrorMessage";
+import { Title } from "../../components/Title";
 import paths from "../../constants/paths";
 import { useUser } from "../../hooks/UserContext";
 import { fetchapi } from "../../services/api";
@@ -29,11 +30,11 @@ export function Login() {
             fetchapi.post('login', {
                 email: user.email,
                 password: user.password,
-            }), {
+            }, { validateStatus: () => true }), {
 
             pending: 'Conferindo os dados',
             success: 'Login efetuado com sucesso',
-            error: 'Alguma coisa deu errado, tente novamente mais tarde'
+            error: 'Alguma coisa deu errado, verifique seus dados ou tente novamente mais tarde'
         }
         )
         putInfoOnLocalS(data)
@@ -54,7 +55,7 @@ export function Login() {
         console.log(result.user)
 
         try {
-            const { data, status } = await fetchapi.post('cadastro', {
+            const { data, status } = await fetchapi.post('login', {
                 name: displayName,
                 email: email,
                 password: uid,
@@ -65,14 +66,16 @@ export function Login() {
                 push(paths.home)
                 putInfoOnLocalS(data)
             } else if (status === 409) {
-                toast.success('Login realizado com sucesso')
+                toast.success('Login realizado')
                 push(paths.home)
                 putInfoOnLocalS(data)
+            } else if (status === 401) {
+                toast.error('Não foi encontrada conta com essas informações, crie uma conta')
             } else {
                 throw new Error()
             }
         } catch (error) {
-            toast.error('Something wrong')
+            toast.error('Não possui conta, faça o cadastro')
         }
 
 

@@ -9,6 +9,8 @@ import { ErrorMessage } from "../../components/ErrorMessage";
 import paths from "../../constants/paths";
 import { useUser } from "../../hooks/UserContext";
 import { fetchapi } from "../../services/api";
+import { auth, firebase } from "../../services/firebase";
+
 import { Button, Container, ContainerItens, GoogleButton, InputUser, Label3D, Title } from "./styles";
 
 export function Register() {
@@ -66,9 +68,7 @@ export function Register() {
                 push(paths.home)
                 putInfoOnLocalS(data)
             } else if (status === 409) {
-                toast.error('Já existe um usuário com essas informações')
-                push(paths.home)
-                putInfoOnLocalS(data)
+                toast.error('Já existe um usuário com essas informações, faça login')
             } else {
                 throw new Error()
             }

@@ -2,18 +2,27 @@ import React from 'react'
 import { Sidebar } from '../../components'
 import { SendPrd } from './sendPrd'
 
-import { Container } from './styles'
+
+import paths from '../../constants/paths'
+import { useUser } from '../../hooks/UserContext'
+import { Container, Wrapper } from './styles'
 
 
-export function Home() {
+export function Home({ match: { path } }) {
+    const { name } = useUser()
+
+
 
     return (
         <Container>
-            {/* <Wrapper> */}
-            <Sidebar />
+            <Sidebar name={name} path={path} />
 
-            <SendPrd />
-            {/* </Wrapper> */}
+            <Wrapper>
+
+                {path === paths.home && <SendPrd />}
+                {path === paths.edit && <SendPrd />}
+            </Wrapper>
         </Container>
     )
 }
+
