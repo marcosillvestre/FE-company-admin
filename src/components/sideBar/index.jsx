@@ -40,7 +40,7 @@ export const Sidebar = ({ name, path }) => {
                         <LinkMenu isActive={path === '/editar-prod'} >
                             <MenuList href={paths.edit} >Editar produção enviada</MenuList>
                         </LinkMenu>
-                        <LinkMenu isActive={path === '/enviar-prod'} >
+                        <LinkMenu isActive={path === '/lista-prod'} >
                             <MenuList href={paths.show}>Produções enviadas</MenuList>
                         </LinkMenu>
                         {/* <MenuList exact to="/analytics" >

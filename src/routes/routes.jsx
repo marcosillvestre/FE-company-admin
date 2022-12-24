@@ -13,9 +13,12 @@ function Routes() {
                 <Route component={Login} path={paths.login} />
                 <Route component={Register} path={paths.register} />
 
+
                 <PrivateRoutes exact component={Home} path={paths.home} />
+                <PrivateRoutes component={Home} path={paths.show} />
+                <PrivateRoutes exact component={Home} path={paths.edit} />
+
                 <PrivateRoutes component={Admin} path={paths.admin} isAdmin />
-                <PrivateRoutes exact component={Home} path={paths.edit} isAdmin />
             </Switch>
         </Router>
     )

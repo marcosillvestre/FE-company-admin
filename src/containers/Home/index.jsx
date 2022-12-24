@@ -1,5 +1,6 @@
 import React from 'react'
 import { Sidebar } from '../../components'
+import { ListProd } from './listPrd'
 import { SendPrd } from './sendPrd'
 
 
@@ -20,7 +21,8 @@ export function Home({ match: { path } }) {
             <Wrapper>
 
                 {path === paths.home && <SendPrd />}
-                {path === paths.edit && <SendPrd />}
+                {/* {path === paths.edit && <SendPrd />} */}
+                {path === paths.show && <ListProd />}
             </Wrapper>
         </Container>
     )
