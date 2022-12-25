@@ -36,7 +36,7 @@ export function SendPrd() {
             prod_per_hour: data.prdHour,
             lost_prod: data.loses,
             operator: data.inCharge,
-            total_prod: data.totalPrd,
+
         }),
             {
                 pending: 'Enviando a sua produção',
@@ -87,9 +87,9 @@ export function SendPrd() {
                     <Input type="text" {...register("inCharge")} validIpnut={errors.inCharge?.message} />
                     <ErrorMessage >{errors.inCharge?.message}</ErrorMessage>
 
-                    <Label>Produção total</Label>
+                    {/* <Label>Produção total</Label>
                     <Input type="number" {...register("totalPrd")} validIpnut={errors.totalPrd?.message} />
-                    <ErrorMessage >{errors.totalPrd?.message}</ErrorMessage>
+                    <ErrorMessage >{errors.totalPrd?.message}</ErrorMessage> */}
 
 
                     <ButtonProducts type="submit"> Enviar tudo</ButtonProducts>
