@@ -1,46 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useHistory } from 'react-router-dom'
 import { fetchapi } from '../../../services/api'
 import formatDate from '../../../services/formateDate'
 import { Carrousel, Container, ContainerItens, MachineNav, Production } from './styles'
 
 export function ListProd() {
+    const { location: { state } } = useHistory()
+    console.log(state)
+
+    let categoryId = 0
 
 
-    const [filtered, setFiltered] = useState([])
-    const [Data, setData] = useState([])
-    const [activeMachine, setActiveMachine] = useState([])
-    const [repetitive, setRepetitive] = useState()
 
-    async function getProd() {
-        const { data } = await fetchapi.get('producao')
-        setData(data)
-        console.log(data)
-    }
+    const [filtered, setFiltered] = useState([]) //as infos filtradas
+    const [data, setData] = useState([]) //as infos
+    const [activeMachine, setActiveMachine] = useState(categoryId)  //a maquina ativa 
+    const [repetitive, setRepetitive] = useState() //so as maquinas
 
-    const { isFetching } = useQuery('Producao', () => getProd())
 
     useEffect(() => {
-
-        function filteredProd() {
-            const filteredPd = Data.filter(info => info.machine === activeMachine)
-            setFiltered(filteredPd)
+        async function getProd() {
+            const { data } = await fetchapi.get('producao')
+            setData(data)
 
         }
 
-        function dont() {
-            const notRepetitive = Data.filter(info => info.machine !== activeMachine)
-            setRepetitive(notRepetitive)
+        async function getAllMachines() {
+            const { data } = await fetchapi.get('todas-maquinas')
+            setRepetitive(data)
+
         }
-        dont()
-        filteredProd()
+
+        getAllMachines()
+        getProd()
+
     }, [activeMachine])
 
 
+    console.log(filtered)
+    // usar o activeMachine para setar a produção
 
+    useEffect(() => {
 
+        if (activeMachine === 0) {
+            setFiltered(data)
+        } else {
+            const final = filtered.filter(
+                infos => infos.machine_id === activeMachine
+            )
+            setFiltered(final)
+        }
 
-
+    }, [activeMachine, data, filtered])
 
 
 
@@ -51,7 +62,7 @@ export function ListProd() {
                 {
                     repetitive && repetitive.map(machine => (
                         <button
-                            onClick={() => setActiveMachine(machine.machine)}
+                            onClick={() => setActiveMachine(machine.id)}
                             key={machine.id}>
                             {machine.machine}
                         </button>
@@ -71,7 +82,7 @@ export function ListProd() {
                     <div>Turno</div>
                 </Carrousel>
                 {
-                    filtered ? filtered.map(info => (
+                    filtered && filtered.map(info => (
 
 
                         <Production key={info.id}>
@@ -79,15 +90,9 @@ export function ListProd() {
                             <div>{info.lost_prod}</div>
                             <div>{info.operator}</div>
                             <div>{formatDate(info.updatedAt)}</div>
-                            <div>{
-                                formatDate(info.updatedAt).split(' ')[3].split(':')[0] <= 5 ? '1º turno' :
-                                    formatDate(info.updatedAt).split(' ')[3].split(':')[0] <= 15 ? '2º turno' :
-                                        formatDate(info.updatedAt).split(' ')[3].split(':')[0] >= 15 ? '3º turno' : ''
-
-
-                            }</div>
+                            <div>{ }</div>
                         </Production>
-                    )) : Data
+                    ))
                 }
 
 

@@ -1,5 +1,5 @@
-import Proptypes from 'prop-types';
-import { createContext, useContext, useEffect, useState } from "react";
+import Proptypes from 'prop-types'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const UserContext = createContext({})
 
@@ -23,6 +23,11 @@ export const UserProvider = ({ children }) => {
         namesInfo()
     }, [])
 
+    const actualizeDate = (date) => {
+        date.split(' ')[3].split(':')[0] <= 5 ? '1º turno' :
+            date.split(' ')[3].split(':')[0] <= 15 ? '2º turno' :
+                date.split(' ')[3].split(':')[0] >= 15 ? '3º turno' : ''
+    }
 
     const logOut = async () => {
         await localStorage.removeItem('admCo:userData')
@@ -42,7 +47,7 @@ export const UserProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ putInfoOnLocalS, logOut, data, name }}>
+        <UserContext.Provider value={{ putInfoOnLocalS, logOut, data, name, actualizeDate }}>
 
             {children}
 
@@ -54,7 +59,7 @@ export const useUser = () => {
     const context = useContext(UserContext)
 
     if (!context) {
-        throw new Error("user most be used with UserCongtext")
+        throw new Error('user most be used with UserCongtext')
     }
     return context
 }

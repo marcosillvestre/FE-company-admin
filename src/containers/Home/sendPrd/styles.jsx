@@ -60,3 +60,10 @@ input{
 
 
 
+export const Select = styled.select`
+border-radius: 10px;
+border: ${props => (props.validIpnut ? '2px solid #CC1717;' : 'none')};
+height: 35px ;
+padding-left: 15px;
+margin-bottom: 10px;
+`

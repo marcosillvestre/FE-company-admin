@@ -31,13 +31,6 @@ form{
     border-radius: 20px
 }
 `
-export const Title = styled.p`
-color: #ffffff;
-margin-bottom: 25px;
-font-size: 18px;
-font-family: 'Cinzel', serif;
-
-`
 
 export const Label3D = styled.div`
 min-height: 100vh ;

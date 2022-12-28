@@ -4,13 +4,13 @@ import {
     CDBSidebarFooter,
     CDBSidebarHeader,
     CDBSidebarMenu
-} from 'cdbreact';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import paths from '../../constants/paths';
-import { useUser } from '../../hooks/UserContext';
-import { LinkMenu, MenuList } from './styles';
+} from 'cdbreact'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import paths from '../../constants/paths'
+import { useUser } from '../../hooks/UserContext'
+import { LinkMenu, MenuList } from './styles'
 
 
 export const Sidebar = ({ name, path }) => {
@@ -35,7 +35,7 @@ export const Sidebar = ({ name, path }) => {
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
                         <LinkMenu isActive={path === '/'} >
-                            <MenuList href={paths.home}>Enviar produção</MenuList>
+                            <MenuList href={paths.home}>Enviar produção </MenuList>
                         </LinkMenu>
                         <LinkMenu isActive={path === '/editar-prod'} >
                             <MenuList href={paths.edit} >Editar produção enviada</MenuList>
@@ -62,9 +62,10 @@ export const Sidebar = ({ name, path }) => {
                 </CDBSidebarFooter>
             </CDBSidebar>
         </div>
-    );
-};
+    )
+}
 
 Sidebar.propTypes = {
-    name: PropTypes.string
+    name: PropTypes.string,
+    path: PropTypes.any
 }
