@@ -6,6 +6,7 @@ const UserContext = createContext({})
 export const UserProvider = ({ children }) => {
     const [data, setData] = useState({})
     const [name, setName] = useState([])
+    const [totalProduction, setTotalProduction] = useState([])
 
     const putInfoOnLocalS = async (userInfos) => {
         setData(userInfos)
@@ -23,11 +24,11 @@ export const UserProvider = ({ children }) => {
         namesInfo()
     }, [])
 
-    const actualizeDate = (date) => {
-        date.split(' ')[3].split(':')[0] <= 5 ? '1º turno' :
-            date.split(' ')[3].split(':')[0] <= 15 ? '2º turno' :
-                date.split(' ')[3].split(':')[0] >= 15 ? '3º turno' : ''
-    }
+    // const actualizeDate = (date) => {
+    //     date.split(' ')[3].split(':')[0] <= 5 ? '1º turno' :
+    //         date.split(' ')[3].split(':')[0] <= 15 ? '2º turno' :
+    //             date.split(' ')[3].split(':')[0] >= 15 ? '3º turno' : ''
+    // }
 
     const logOut = async () => {
         await localStorage.removeItem('admCo:userData')
@@ -47,7 +48,7 @@ export const UserProvider = ({ children }) => {
 
 
     return (
-        <UserContext.Provider value={{ putInfoOnLocalS, logOut, data, name, actualizeDate }}>
+        <UserContext.Provider value={{ putInfoOnLocalS, logOut, data, name, totalProduction, setTotalProduction, }}>
 
             {children}
 

@@ -1,29 +1,29 @@
-import React from "react";
+import React from 'react'
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router";
-import { toast } from "react-toastify";
-import * as yup from 'yup';
-import google from '../../assets/google.svg';
-import { ErrorMessage } from "../../components/ErrorMessage";
-import { Title } from "../../components/Title";
-import paths from "../../constants/paths";
-import { useUser } from "../../hooks/UserContext";
-import { fetchapi } from "../../services/api";
-import { auth, firebase } from "../../services/firebase";
-import { Button, Container, ContainerItens, GoogleButton, InputUser, Label3D } from "./styles";
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
+import * as yup from 'yup'
+import google from '../../assets/google.svg'
+import { ErrorMessage } from '../../components/ErrorMessage'
+import { Title } from '../../components/Title'
+import paths from '../../constants/paths'
+import { useUser } from '../../hooks/UserContext'
+import { fetchapi } from '../../services/api'
+import { auth, firebase } from '../../services/firebase'
+import { Button, Container, ContainerItens, GoogleButton, InputUser, Label3D } from './styles'
 
 export function Login() {
     const { putInfoOnLocalS } = useUser()
     const { push } = useHistory()
 
     const schema = yup.object({
-        email: yup.string().required("este campo precisa ser preechido").email("digite um email válido"),
-        password: yup.string().required("este campo precisa ser preenchido").min(6, "a senha deve ter no minimo 6 dígitos")
+        email: yup.string().required('este campo precisa ser preechido').email('digite um email válido'),
+        password: yup.string().required('este campo precisa ser preenchido').min(6, 'a senha deve ter no minimo 6 dígitos')
     })
 
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
 
     const onSubmit = async (user) => {
         const { data } = await toast.promise(
@@ -42,7 +42,7 @@ export function Login() {
 
         setInterval(() => {
             isAdmin ? push(paths.admin) : push(paths.home)
-        }, 2000);
+        }, 2000)
     }
 
 
@@ -85,17 +85,17 @@ export function Login() {
     return (
         <Container>
             <Label3D>
-                <iframe src='https://my.spline.design/clonertorusmotioncopy-c52faff7c9c15c6536c08543d11874bc/'
-                    frameBorder='0' width='100%' height='100%'></iframe>
+                <iframe title='title' src='https://my.spline.design/clonertorusmotioncopy-c52faff7c9c15c6536c08543d11874bc/'
+                    frameBorder='0' width='100%' height='100%' />
             </Label3D>
             <ContainerItens>
                 <Title>Company admin</Title>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <GoogleButton onClick={handleGoogleLogin}><img src={google} /> Continue with Google </GoogleButton>
+                    <GoogleButton onClick={handleGoogleLogin}><img src={google} alt='google pic' /> Continue with Google </GoogleButton>
                     <p>or</p>
-                    <InputUser formNoValidate type='email' {...register("email")} placeholder="Email.." validIpnut={errors.email?.message} />
+                    <InputUser formNoValidate type='email' {...register('email')} placeholder="Email.." validIpnut={errors.email?.message} />
                     <ErrorMessage>{errors.email?.message}</ErrorMessage>
-                    <InputUser formNoValidate type='password'{...register("password")} placeholder="Senha.." validIpnut={errors.password?.message} />
+                    <InputUser formNoValidate type='password'{...register('password')} placeholder="Senha.." validIpnut={errors.password?.message} />
                     <ErrorMessage>{errors.password?.message}</ErrorMessage>
 
                     <Button type="submit"> Log in </Button>
@@ -103,5 +103,5 @@ export function Login() {
                 </form>
             </ContainerItens>
         </Container>
-    );
+    )
 }

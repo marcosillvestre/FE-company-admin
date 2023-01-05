@@ -13,8 +13,8 @@ import { useUser } from '../../hooks/UserContext'
 import { LinkMenu, MenuList } from './styles'
 
 
-export const Sidebar = ({ name, path }) => {
-    const { logOut } = useUser()
+export const Sidebar = ({ names, path }) => {
+    const { logOut, name } = useUser()
     const { push } = useHistory()
 
     console.log(path)
@@ -28,7 +28,7 @@ export const Sidebar = ({ name, path }) => {
             <CDBSidebar textColor="#fff" backgroundColor="#333">
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
                     <p className="text-decoration-none" style={{ color: 'inherit' }}>
-                        Olá {name}
+                        Olá {names || name}
                     </p>
                 </CDBSidebarHeader>
 
@@ -37,11 +37,13 @@ export const Sidebar = ({ name, path }) => {
                         <LinkMenu isActive={path === '/'} >
                             <MenuList href={paths.home}>Enviar produção </MenuList>
                         </LinkMenu>
-                        <LinkMenu isActive={path === '/editar-prod'} >
-                            <MenuList href={paths.edit} >Editar produção enviada</MenuList>
-                        </LinkMenu>
+
                         <LinkMenu isActive={path === '/lista-prod'} >
                             <MenuList href={paths.show}>Produções enviadas</MenuList>
+                        </LinkMenu>
+
+                        <LinkMenu isActive={path === '/enviar-total-prod'} >
+                            <MenuList href={paths.total} >Produção total</MenuList>
                         </LinkMenu>
                         {/* <MenuList exact to="/analytics" >
                             <MenuList icon="chart-line">Analytics</MenuList>
@@ -66,6 +68,6 @@ export const Sidebar = ({ name, path }) => {
 }
 
 Sidebar.propTypes = {
-    name: PropTypes.string,
+    name: PropTypes.any,
     path: PropTypes.any
 }

@@ -15,17 +15,17 @@ export function SendPrd() {
         async function getMachines() {
             const { data } = await fetchapi.get('todas-maquinas')
             setMachines(data)
-
         }
         getMachines()
     }, [])
+    console.log(machines)
 
 
 
     const schema = Yup
         .object({
-            machine:
-                Yup.string().required('O nome da máquine é obrigatório'),
+            machine_id:
+                Yup.string().required('O id da máquine é obrigatório'),
             prdHour:
                 Yup.string().required('É necessário informar a produção da ultima hora'),
             loses:
@@ -44,21 +44,16 @@ export function SendPrd() {
 
         console.log(data)
         await toast.promise(fetchapi.post('enviar-producao', {
-            machine: data.machine,
+            machine_id: data.machine_id,
             prod_per_hour: data.prdHour,
             lost_prod: data.loses,
             operator: data.inCharge,
-            machine_id: data.machine.id,
-
         }),
             {
                 pending: 'Enviando a sua produção',
                 success: 'Produçao enviada com sucesso',
                 error: 'Falha ao enviar dados'
             })
-
-        // setTimeout(() => {
-        // }, 2000)
     }
 
 
@@ -72,10 +67,6 @@ export function SendPrd() {
 
 
 
-    // const { isFetching } = useQuery('', () => getCategories(),
-    //     {
-    //         staleTime: 60000,
-    //     })
 
     return (
         <Container >
@@ -92,12 +83,12 @@ export function SendPrd() {
                     <Input type="text" {...register('loses')} validIpnut={errors.loses?.message} />
                     <ErrorMessage >{errors.loses?.message}</ErrorMessage>
 
-                    <Label>Responsável</Label>
-                    <Input type="text" {...register('inCharge')} validIpnut={errors.inCharge?.message} />
+                    <Label>Responsável/Máquina</Label>
+                    <Input placeholder='Seu nome/Máquina' type="text" {...register('inCharge')} validIpnut={errors.inCharge?.message} />
                     <ErrorMessage >{errors.inCharge?.message}</ErrorMessage>
 
                     <Label>Máquina</Label>
-                    <Select type="number" {...register('machine')} validIpnut={errors.machine?.message} >
+                    <Select  {...register('machine_id')} validIpnut={errors.machine_id?.message} >
                         {
                             machines && machines.map(maq => (
                                 <option key={maq.id} value={maq.id}>{maq.machine}</option>
@@ -105,7 +96,7 @@ export function SendPrd() {
                             ))
                         }
                     </Select>
-                    <ErrorMessage >{errors.machine?.message}</ErrorMessage>
+                    <ErrorMessage >{errors.machine_id?.message}</ErrorMessage>
 
 
                     <ButtonProducts type="submit"> Enviar tudo</ButtonProducts>
@@ -116,6 +107,4 @@ export function SendPrd() {
 
         </Container>)
 }
-
-export default SendPrd
 

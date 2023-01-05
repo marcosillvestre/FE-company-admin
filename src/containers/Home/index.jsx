@@ -2,6 +2,7 @@ import React from 'react'
 import { Sidebar } from '../../components'
 import { ListProd } from './listPrd'
 import { SendPrd } from './sendPrd'
+import { TotalProd } from './totalProd'
 
 
 import paths from '../../constants/paths'
@@ -16,12 +17,12 @@ export function Home({ match: { path } }) {
 
     return (
         <Container>
-            <Sidebar name={name} path={path} />
+            <Sidebar names={name} path={path} />
 
             <Wrapper>
 
                 {path === paths.home && <SendPrd />}
-                {/* {path === paths.edit && <SendPrd />} */}
+                {path === paths.total && <TotalProd />}
                 {path === paths.show && <ListProd />}
             </Wrapper>
         </Container>

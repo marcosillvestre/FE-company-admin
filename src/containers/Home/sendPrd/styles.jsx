@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -66,4 +67,7 @@ border: ${props => (props.validIpnut ? '2px solid #CC1717;' : 'none')};
 height: 35px ;
 padding-left: 15px;
 margin-bottom: 10px;
+`
+
+export const LinkToList = styled(Link)`
 `

@@ -16,7 +16,7 @@ function Routes() {
 
                 <PrivateRoutes exact component={Home} path={paths.home} />
                 <PrivateRoutes component={Home} path={paths.show} />
-                <PrivateRoutes exact component={Home} path={paths.edit} />
+                <PrivateRoutes exact component={Home} path={paths.total} />
 
                 <PrivateRoutes component={Admin} path={paths.admin} isAdmin />
             </Switch>

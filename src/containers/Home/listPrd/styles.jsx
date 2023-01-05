@@ -49,11 +49,45 @@ export const MachineNav = styled.header`
 
     display: flex;
     gap: 25px; 
+    justify-content: center;
     flex-direction: row;
     font-size: 18px;
-    button{
+    max-width: 735px ;
+    flex-wrap: wrap;
+
+
+`
+export const ButtonMachines = styled.button`  
         background: none;
         border: none;
-    }
+        text-decoration:${props => props.isActived ? 'underline' : 'none'};
+        cursor: pointer;
 
+        &:hover{
+                opacity: 0.8;
+            }
+    `
+
+export const SendTotalProd = styled.button`
+margin-top: 20px;
+width: 80% ;
+height: 50px;
+border-radius: 10px;
+background-color: #565656;
+color: #ffffff;
+border: none;
+
+&:hover{
+
+}
+
+&:active{
+  transition: transform .2s;
+transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transition-property: transform;
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
 `
